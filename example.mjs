@@ -3,7 +3,7 @@ const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY }); // This is op
 
 const response = await client.responses.create({
     model: "gpt-5-nano",
-    input: "Tell me about Felix McClarty and be concise.",
+    input: "Is Alex McClarty a noun or verb?.",
 });
 
 console.log(response.output_text);
