@@ -19,8 +19,3 @@ Genesis is the official baseline and template for all agents created by Sage Rob
 npm install
 node Genesis.mjs
 ```
-## Web UI
-```bash
-node Genesis.mjs --ui
-# open http://localhost:3000
-```

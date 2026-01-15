@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "@openai/agents": "^0.3.7",
+    "firebase": "^12.8.0",
+    "firebase-admin": "^13.6.0",
     "openai": "^6.16.0",
     "zod": "^3.25.76"
   }
