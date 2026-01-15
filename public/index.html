@@ -214,7 +214,7 @@
           required
         ></textarea>
         <div class="actions">
-          <button type="submit" id="send">Send to Genesis</button>
+          <button type="button" id="send">Send to Genesis</button>
           <span class="hint">Tip: Press Ctrl + Enter to send.</span>
         </div>
       </form>
@@ -226,69 +226,12 @@
     </main>
 
     <script>
-      const form = document.getElementById("prompt-form");
-      const promptField = document.getElementById("prompt");
-      const sendButton = document.getElementById("send");
       const status = document.getElementById("status");
-      const response = document.getElementById("response");
-
-      const setBusy = (busy) => {
-        sendButton.disabled = busy;
-        status.textContent = busy ? "Thinking..." : "Ready.";
-      };
-
-      const sendPrompt = async () => {
-        const input = promptField.value.trim();
-        if (!input) {
-          status.textContent = "Add a message first.";
-          return;
-        }
-
-        setBusy(true);
-        response.textContent = "";
-
-        try {
-          const res = await fetch("/api/message", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ input }),
-          });
-
-          const rawText = await res.text();
-          let data = {};
-          if (rawText) {
-            try {
-              data = JSON.parse(rawText);
-            } catch {
-              data = { error: rawText };
-            }
-          }
-          if (!res.ok) {
-            throw new Error(data.error || `Request failed (${res.status}).`);
-          }
-
-          response.textContent = data.output || "(No output returned)";
-        } catch (error) {
-          response.textContent = error.message;
-        } finally {
-          setBusy(false);
-        }
-      };
-
-      form.addEventListener("submit", (event) => {
-        event.preventDefault();
-        sendPrompt();
-      });
-
-      promptField.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
-          event.preventDefault();
-          sendPrompt();
-        }
-      });
 
       if (location.protocol === "file:") {
-        status.textContent = "Run node Genesis.mjs --ui and open http://localhost:3000.";
+        status.textContent = "Run node Genesis.mjs and use the CLI for responses.";
+      } else {
+        status.textContent = "CLI-only mode. UI input is disabled.";
       }
     </script>
   </body>
