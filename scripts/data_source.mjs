@@ -3,7 +3,7 @@ import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/fire
 
 // IMPORTANT: use your web firebaseConfig (from Firebase console)
 const firebaseConfig = {
-  apiKey: "Go retrieve this from your Firebase console",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "almighty-test.firebaseapp.com",
   projectId: "almighty-test",
 };
@@ -13,24 +13,26 @@ const db = getFirestore(app);
 
 const facts = [
   {
-    title: "Refund window",
-    content: "Refunds are allowed within 30 days of purchase with receipt.",
-    tags: ["billing", "refund", "policy"],
-    source: "Billing Policy v3",
+    name: "Felix McClarty",
+    relationship: "Grandfather",
+    birth_place: "Marianna, Mississippi, USA",
+    birth: ["May", "22", "1894"],
+    source: "4-McClarty Geneology",
     isActive: true,
   },
   {
-    title: "Support hours",
-    content: "Support is available Monday-Friday, 9am-5pm Central Time.",
-    tags: ["support", "hours"],
-    source: "Support SOP",
+    name: "Eugene McClarty",
+    relationship: "Uncle",
+    birth_place: "Marianna, Mississippi, USA",
+    birth: ["February", "27", "1891"],
+    source: "4-McClarty Geneology",
     isActive: true,
   },
 ];
 
 const uploadFacts = async () => {
   for (const fact of facts) {
-    await addDoc(collection(db, "facts"), {
+    await addDoc(collection(db, "McClarty_FamilyFacts"), {
       ...fact,
       updatedAt: serverTimestamp(),
     });

@@ -1,4 +1,5 @@
 // firestore_client.mjs
+import "dotenv/config";
 import admin from "firebase-admin";
 
 let db;
@@ -13,6 +14,7 @@ export function getDb() {
   if (!admin.apps.length) {
     admin.initializeApp({
       credential: admin.credential.applicationDefault(),
+      projectId: process.env.FIREBASE_PROJECT_ID,
     });
   }
 

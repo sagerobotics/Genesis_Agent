@@ -1,9 +1,21 @@
 {
   "dependencies": {
     "@openai/agents": "^0.3.7",
+    "dotenv": "^17.2.3",
     "firebase": "^12.8.0",
     "firebase-admin": "^13.6.0",
     "openai": "^6.16.0",
     "zod": "^3.25.76"
-  }
+  },
+  "name": "genesis-agent",
+  "version": "1.0.0",
+  "description": "Genesis is the official baseline and template for all agents created by Sage Robotics Company, LLC. It provides a consistent, production-ready foundation for agent configuration and OpenAI Responses API usage. The primary example (`Genesis.mjs`) instantiates an agent and performs a simple model call; `example.mjs` shows a minimal direct Responses API request.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
 }
