@@ -11,7 +11,7 @@ import {
 
 // IMPORTANT: use your web firebaseConfig (from Firebase console)
 const firebaseConfig = {
-  apiKey: "AIzaSyDXS6Lftgfl9-rzA0ljIj0YCSpF5_fp4FI",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "almighty-test.firebaseapp.com",
   projectId: "almighty-test",
 };
@@ -20,13 +20,14 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // Update settings: adjust these for your collection and match field/value.
-const targetCollection = "facts";
-const matchField = "title";
-const matchValue = "Support hours";
+const targetCollection = "McClarty_FamilyFacts";
+const matchField = "name";
+const matchValue = "Eugene McClarty";
 
 // Fields to update on matching documents.
 const updates = {
   isActive: true,
+  militaryService: "World War I",
   updatedAt: serverTimestamp(),
 };
 

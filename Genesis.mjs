@@ -1,24 +1,30 @@
 import path from "node:path";
 import readline from "readline";
 import { fileURLToPath } from "node:url";
-import OpenAI from "openai";
-import { Agent } from "@openai/agents";
-
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+import { z } from "zod";
+import { info_retriever } from "./Info_retriever.mjs";
+import { Agent, run, tool } from "@openai/agents";
 const defaultPrompt = "What is today's date?";
+
+const infoRetrieverTool = tool({
+  name: "info_retriever",
+  description: "Retrieves relevant facts from the McClarty family facts database.",
+  parameters: z.object({
+    tag: z.string().nullable(),
+    limit: z.number().int().min(1).max(20),
+  }),
+  execute: async (input) => info_retriever(input ?? {}),
+});
 
 export const agent = new Agent({
   name: "Genesis Agent",
   instructions: "A very friendly AI agent that helps with various tasks.",
+  tools: [infoRetrieverTool],
 });
 
 export const runGenesis = async (input) => {
-  const response = await client.responses.create({
-    model: "gpt-5-nano",
-    input,
-  });
-
-  return response.output_text || "";
+  const result = await run(agent, input);
+  return result.finalOutput || "";
 };
 
 const isDirectRun =
